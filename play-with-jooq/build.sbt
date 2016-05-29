@@ -25,17 +25,17 @@ libraryDependencies ++= Seq(
 
 routesGenerator := InjectedRoutesGenerator
 
-//val generateJOOQ = taskKey[Seq[File]]("Generate JooQ classes")
-//
-//val generateJOOQTask = (baseDirectory, dependencyClasspath in Compile, runner in Compile, streams) map { (base, cp, r, s) =>
-//  toError(r.run(
-//    "org.jooq.util.GenerationTool",
-//    cp.files,
-//    Array("conf/chapter7.xml"),
-//    s.log))
-//  ((base / "app" / "generated") ** "*.scala").get
-//}
-//
-//generateJOOQ <<= generateJOOQTask
-//
-//libraryDependencies += "com.ning" % "async-http-client" % "1.9.29"
+val generateJOOQ = taskKey[Seq[File]]("Generate JooQ classes")
+
+val generateJOOQTask = (baseDirectory, dependencyClasspath in Compile, runner in Compile, streams) map { (base, cp, r, s) =>
+  toError(r.run(
+    "org.jooq.util.GenerationTool",
+    cp.files,
+    Array("conf/chapter7.xml"),
+    s.log))
+  ((base / "app" / "generated") ** "*.scala").get
+}
+
+generateJOOQ <<= generateJOOQTask
+
+libraryDependencies += "com.ning" % "async-http-client" % "1.9.29"
